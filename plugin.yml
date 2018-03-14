@@ -1,0 +1,11 @@
+name: CheckPing
+main: jp\mazaicrafty\pmmp\CheckPing\main
+author: MazaiCrafty
+api:
+- 3.0.0-ALPHA11
+- 3.0.0-ALPHA12
+version: 1.0.0
+load: POSTWORLD
+commands:
+ ping:
+  description: CheckPing
