@@ -54,18 +54,37 @@ class main extends PluginBase{
         }
         $dir = $this->getDataFolder();
         $this->config = new Config($dir . "Config.yml", Config::YAML, array(
-            "message" => "§aPong %PING%ms"
+            "message" => "%PLAYER%'s §aPing %PING%ms"
         ));
     }
 
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool{
         switch ($cmd->getName()){
             case "ping":
-            $ping = $sender->getPing();
-            $str = $this->config->get("message");
-            $message = str_replace("%PING%", $ping, $str);
-            $sender->sendMessage($message);
-            return true;
+            if (isset($args[0])){
+                $name = $args[0];
+                $player = $this->getServer()->getPlayer($name);
+                $name = $player->getName();
+                if ($player === null){
+                    $sender->sendMessage("${name}はいない");
+                    return true;
+                }
+                $ping = $player->getPing();
+                $str = $this->config->get("message");
+                $setPing = str_replace("%PING%", $ping, $str);
+                $message = str_replace("%PLAYER%", $name, $setPing);
+                $sender->sendMessage($message);
+                return true;
+            }
+            else{
+                $ping = $sender->getPing();
+                $name = $sender->getName();
+                $str = $this->config->get("message");
+                $setPing = str_replace("%PING%", $ping, $str);
+                $message = str_replace("%PLAYER%", $name, $setPing);
+                $sender->sendMessage($message);
+                return true;        
+            }
         }
         return true;
     }
