@@ -34,7 +34,7 @@ use pocketmine\utils\Config;
 class main extends PluginBase{
 
     const PREFIX = "§a[§bCheckPing§a]§r ";
-    const VERSION = "1.0.0";
+    const VERSION = "1.1.0";
 
     public function onEnable(): void{
         $this->allRegisterEvents();
